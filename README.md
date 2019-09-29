@@ -10,7 +10,7 @@ A unified typescript API for all cryptocurrency exchanges, which uses typescript
 
 
 # Why T-CCXT?
-Because CCXT has become far too bloated and doesn't support websockets at the moment.
+Because CCXT had become far too bloated, had incomplete typescript implementation and didn't support websocket connections. T-CCXT is built on top of CCXT with the best coding practises.
 
 
 # Example

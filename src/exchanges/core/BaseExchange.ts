@@ -210,7 +210,6 @@ export default abstract class BaseExchange extends BaseChartableExchange {
   public getSupportedOrderTypes (symbol: string): IOrderTypes[] { return ['limit', 'market'] }
 
   /* Margin trading functions */
-
   public abstract getOpenPositions (symbol: string)
   public abstract getClosedPositions (symbol: string)
   public abstract getAllPositions (symbol: string)
@@ -252,14 +251,13 @@ export default abstract class BaseExchange extends BaseChartableExchange {
   }
 
 
-
   /**
    * A throttled version of the emit function. Sometimes exchanges emit
-   * events faster than what our app can update. And so for that reason, we
-   * throttle the requests; so that the app has enough time to process requests
+   * events faster than what our app can update. For that reason, we
+   * throttle our requests so that the app has enough time to process requests
    * together.
    */
-  public emitThrottled (event: string, args: any[]) {
+  protected emitThrottled (event: string, args: any[]) {
     if (!this.enableThrottle) return super.emit(event, args)
 
     this.emitCache[event] = this.emitCache[event] || []

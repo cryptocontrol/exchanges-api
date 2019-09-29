@@ -90,11 +90,9 @@ export default class BinanceExchange extends CCXTExchange {
     // this.exchange.market(symbol)
     const wsSymbol = this.exchange.marketId(symbol).toLowerCase()
 
-    const url =
-    `wss://stream.binance.com:9443/stream?streams=!miniTicker@arr@3000ms/${wsSymbol}@depth.b10/${wsSymbol}@aggTrade.b10`
+    const url = `wss://stream.binance.com:9443/stream?streams=!${wsSymbol}@aggTrade.b10`
     // ?streams=!miniTicker@arr@3000ms/btcusdt@depth.b10/btcusdt@aggTrade.b10
-    // const url = `wss://stream.binance.com:9443/ws/${wsSymbol}@trade`
-    // const url = `wss://stream.binance.com:9443/ws/${wsSymbol}@trade`
+
     const socket = new Websocket(url)
 
     socket.onMessage = event => {
