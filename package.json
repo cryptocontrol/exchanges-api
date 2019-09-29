@@ -1,0 +1,29 @@
+{
+  "name": "exchanges-api",
+  "version": "1.0.0",
+  "description": "A unified API for all crypto exchanges",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Steven Enamakel <enamakel@cryptocontrol.io>",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cryptocontrol/exchanges-api.git"
+  },
+  "keywords": [
+    "ccxt",
+    "exchanges",
+    "cryptocurrency",
+    "api",
+    "typescript"
+  ],
+  "bugs": {
+    "url": "https://github.com/cryptocontrol/exchanges-api/issues"
+  },
+  "homepage": "https://github.com/cryptocontrol/exchanges-api#readme"
+}
