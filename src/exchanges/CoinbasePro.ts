@@ -41,7 +41,7 @@ export default class CoinbaseProExchange extends CCXTExchange {
   }
 
 
-  getSupportedResolutions(): ResolutionString[] {
+  async getSupportedResolutions () {
     return ['1', '5', '15', '60', '360', 'D']
   }
 

@@ -10,7 +10,7 @@ type IKrakenInterval = '1' | '5' | '15' | '30' | '60' | '240'
 
 
 export default class KrakenExchange extends CCXTExchange {
-  getSupportedResolutions(): string[] {
+  async getSupportedResolutions () {
     return ['1', '5', '15', '30', '60', 'D', 'W', '2W']
   }
 

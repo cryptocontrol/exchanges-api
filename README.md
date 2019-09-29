@@ -7,7 +7,7 @@ A unified typescript API for all cryptocurrency exchanges, which uses typescript
 - Trades and Partial Orderbooks are streamed as events (using the EventEmitter)
 - A unified interface for exchanges with margin accounts
 - Support for UDF datafeeds for integrations with TradingView charts
-
+- Browser-compatible code
 
 # Why T-CCXT?
 Because CCXT had become far too bloated, had incomplete typescript implementation and didn't support websocket connections. T-CCXT is built on top of CCXT with the best coding practises.

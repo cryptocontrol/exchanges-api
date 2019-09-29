@@ -48,7 +48,7 @@ export default class BittrexExchange extends CCXTExchange {
   }
 
 
-  getSupportedResolutions(): ResolutionString[] {
+  async getSupportedResolutions() {
     return ['1', '5', '30', '60', 'D']
   }
 

@@ -22,7 +22,7 @@ export default class HitbtcExchange extends CCXTExchange {
   }
 
 
-  getSupportedResolutions(): string[] {
+  async getSupportedResolutions () {
     return ['1', '3', '5', '15', '30', '60', '240', 'D', 'W', 'M']
   }
 

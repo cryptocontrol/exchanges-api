@@ -8,7 +8,7 @@ type IOkexInterval = '60' | '180' | '300' | '900' | '1800' | '3600'
 
 
 export default class OkEXExchange extends CCXTExchange {
-  getSupportedResolutions(): string[] {
+  async getSupportedResolutions () {
     return ['1', '3', '5', '15', '30', '60', '120', '360', '720', 'D', 'W', '2W']
   }
 

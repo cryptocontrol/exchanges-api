@@ -41,13 +41,13 @@ abstract class BaseChartableExchange extends EventEmitter implements IExternalDa
   }
 
 
-  protected abstract getSupportedResolutions(): string[]
+  protected abstract getSupportedResolutions(): Promise<string[]>
   protected abstract getHistory (
     ticker: string, resolution: string, rangeStartDate: number,
     rangeEndDate: number): Promise<GetBarsResult>
 
 
-  onReady (callback: OnReadyCallback): void {
+  async onReady (callback: OnReadyCallback) {
     callback({
       symbols_types: [],
       exchanges: [],
@@ -56,7 +56,7 @@ abstract class BaseChartableExchange extends EventEmitter implements IExternalDa
       supports_marks: false,
       supports_timescale_marks: false,
       supports_time: false,
-      supported_resolutions: this.getSupportedResolutions()
+      supported_resolutions: await this.getSupportedResolutions()
     })
   }
 
@@ -110,7 +110,7 @@ abstract class BaseChartableExchange extends EventEmitter implements IExternalDa
   }
 
 
-  resolveSymbol(symbolName: string, onResolve: ResolveCallback, onError: ErrorCallback): void {
+  async resolveSymbol(symbolName: string, onResolve: ResolveCallback, onError: ErrorCallback) {
     // calculate deciemals to show
     let decimals = 3
     if (symbolName.indexOf('/USD') || symbolName.indexOf('/TUSD')) decimals = 3
@@ -132,7 +132,7 @@ abstract class BaseChartableExchange extends EventEmitter implements IExternalDa
       type: 'pulsed',
       ticker: symbolName,
       pricescale: 10 ** decimals,
-      supported_resolutions: this.getSupportedResolutions(),
+      supported_resolutions: await this.getSupportedResolutions(),
       session: '24x7',
       timezone: 'America/New_York'
     }
@@ -150,7 +150,7 @@ abstract class BaseChartableExchange extends EventEmitter implements IExternalDa
   }
 
 
-  abstract getServerTime?(callback: ServerTimeCallback): void
+  abstract getServerTime?(callback: ServerTimeCallback): Promise<number>
 
 
   abstract subscribeBars (
@@ -189,13 +189,13 @@ export default abstract class BaseExchange extends BaseChartableExchange {
   }
 
 
-  public abstract hasFeature (id: IExchangeFeature, symbolOrCurrency?: string): Boolean
-  public abstract canTrade (symbolOrCurrency?: string): Boolean
-  public abstract allowsSpotTrading (symbol: string): boolean
-  public abstract allowsMarginTrading (symbol: string): boolean
+  public abstract hasFeature (id: IExchangeFeature, symbolOrCurrency?: string): Promise<Boolean>
+  public abstract canTrade (symbolOrCurrency?: string): Promise<Boolean>
+  public abstract allowsSpotTrading (symbol: string): Promise<Boolean>
+  public abstract allowsMarginTrading (symbol: string): Promise<Boolean>
 
   public abstract initialise (): Promise<void>
-  public abstract isInitialised (): Boolean
+  public abstract isInitialised (): Promise<Boolean>
 
   public abstract streamTrades (symbol: string): void
   public abstract streamOrderbook (symbol: string): void
@@ -232,10 +232,10 @@ export default abstract class BaseExchange extends BaseChartableExchange {
   public abstract getClosedOrders (symbol: string): Promise<ccxt.Order[]>
 
   public abstract executeOrder (symbol: string, order: IOrderRequest): Promise<ccxt.Order>
-  public abstract executeMarginOrder (order: IOrderRequest): ccxt.Order
+  public abstract executeMarginOrder (order: IOrderRequest): Promise<ccxt.Order>
   public abstract cancelOrder (symbol: string, orderId: string): Promise<Boolean>
 
-  public abstract getMarkets (): {[symbol: string]: ccxt.Market}
+  public abstract getMarkets (): Promise<{[symbol: string]: ccxt.Market}>
   public abstract getTickers (): Promise<{[x: string]: ccxt.Ticker}>
 
   public abstract getSpotBalance (): Promise<ccxt.Balances>

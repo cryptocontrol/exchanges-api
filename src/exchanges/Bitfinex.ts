@@ -92,14 +92,14 @@ export default class BitfinexExchange extends CCXTExchange {
   }
 
 
-  allowsMarginTrading (symbol: string) {
+  async allowsMarginTrading (symbol: string): Promise<Boolean> {
     // todo: use the values from https://api.bitfinex.com/v1/symbols_details
     const bfxSymbol = this.exchange.marketId(symbol)
     return this.supportedMarginSymbols.indexOf(bfxSymbol) >= 0
   }
 
 
-  getSupportedResolutions(): string[] {
+  async getSupportedResolutions() {
     return ['1', '5', '15', '30', '60', '180', '360', '720', 'D', 'W', '2W', 'M']
   }
 

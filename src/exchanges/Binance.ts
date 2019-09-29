@@ -134,7 +134,7 @@ export default class BinanceExchange extends CCXTExchange {
   }
 
 
-  public allowsMarginTrading (symbol: string): boolean {
+  public async allowsMarginTrading (symbol: string): Promise<Boolean> {
     // todo: use the binance api to check which symbols have margin trading and which don't
     return this.marginSymbols.indexOf(symbol.replace('/', '')) >= 0
   }
@@ -214,13 +214,8 @@ export default class BinanceExchange extends CCXTExchange {
 
 
 
-  getSupportedResolutions(): ResolutionString[] {
+  async getSupportedResolutions() {
     return ['1', '3', '5', '15', '30', '60', '120', '240', '360', '480', '720', 'D', '3D', 'W', 'M']
-  }
-
-
-  getServerTime? (callback: ServerTimeCallback): void {
-    return
   }
 
 

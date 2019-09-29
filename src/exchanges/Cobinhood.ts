@@ -9,7 +9,7 @@ type ICobinhoodInterval = '1m' | '5m' | '15m' | '30m' | '1h' | '3h'
 
 
 export default class CobinhoodExchange extends CCXTExchange {
-  getSupportedResolutions(): string[] {
+  async getSupportedResolutions () {
     return ['5', '15', '30', '60', '180', '360', '720', 'D', 'W', '2W', 'M']
   }
 

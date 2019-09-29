@@ -19,7 +19,7 @@ export default class CCXTExchange extends BaseExchange {
   }
 
 
-  public isInitialised (): boolean {
+  public async isInitialised (): Promise<Boolean> {
     return !!this.exchange.markets
   }
 
@@ -29,13 +29,13 @@ export default class CCXTExchange extends BaseExchange {
   }
 
 
-  public hasFeature(id: IExchangeFeature, symbolOrCurrency?: string): Boolean {
+  public async hasFeature(id: IExchangeFeature, symbolOrCurrency?: string): Promise<Boolean> {
     if (id === 'view_deposits') return this.exchange.has.fetchDeposits
     if (id === 'view_withdrawals') return this.exchange.has.fe
   }
 
 
-  public canTrade (symbolOrCurrency?: string): Boolean {
+  public async canTrade (symbolOrCurrency?: string): Promise<Boolean> {
     return this.exchange.market(symbolOrCurrency).active
   }
 
@@ -124,7 +124,7 @@ export default class CCXTExchange extends BaseExchange {
   }
 
 
-  protected getSupportedResolutions(): string[] {
+  protected async getSupportedResolutions(): Promise<string[]> {
     // throw new Error("Method not implemented.")
     return ['D']
   }
@@ -143,8 +143,9 @@ export default class CCXTExchange extends BaseExchange {
   }
 
 
-  getServerTime?(callback: ServerTimeCallback): void {
+  async getServerTime?(callback: ServerTimeCallback) {
     // throw new Error("Method not implemented.")
+    return Date.now()
   }
 
 
@@ -178,17 +179,17 @@ export default class CCXTExchange extends BaseExchange {
   }
 
 
-  public allowsSpotTrading (symbol: string): boolean {
+  public async allowsSpotTrading (symbol: string): Promise<Boolean> {
     return true
   }
 
 
-  public allowsMarginTrading (symbol: string): boolean {
+  public async allowsMarginTrading (symbol: string): Promise<Boolean> {
     return false
   }
 
 
-  public executeMarginOrder (order: IOrderRequest): ccxt.Order {
+  public executeMarginOrder (order: IOrderRequest): Promise<ccxt.Order> {
     throw new Error('not implemented')
   }
 
@@ -224,7 +225,7 @@ export default class CCXTExchange extends BaseExchange {
   }
 
 
-  public getMarkets () {
+  public async getMarkets () {
     // @todo: save into couch db
     // see the code of Exchange.js/loadMarkets
     return this.exchange.markets

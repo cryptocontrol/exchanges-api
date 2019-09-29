@@ -1,6 +1,6 @@
 import * as ccxt from 'ccxt'
 import * as qs from 'querystring'
-import { BitmexAPI } from 'bitmex-node'
+// import { BitmexAPI } from 'bitmex-node'
 
 import { Bar, LibrarySymbolInfo, ServerTimeCallback, SubscribeBarsCallback, GetBarsResult,
   ResolutionString } from '../datafeed-api'
@@ -54,12 +54,12 @@ export default class BitmexExchange extends CCXTExchange {
   }
 
 
-  allowsMarginTrading () {
+  async allowsMarginTrading () {
     return true
   }
 
 
-  allowsSpotTrading () {
+  async allowsSpotTrading () {
     return false
   }
 
@@ -115,7 +115,7 @@ export default class BitmexExchange extends CCXTExchange {
   // }
 
 
-  protected getSupportedResolutions(): string[] {
+  protected async getSupportedResolutions() {
     return ['1', '5', '15', '30', '60', '180', '360', '720', 'D', '3D', 'W', '2W', 'M']
   }
 
@@ -198,11 +198,6 @@ export default class BitmexExchange extends CCXTExchange {
     //     leverageMultiplier: 0,
     //   }
     // )
-  }
-
-
-  getServerTime?(callback: ServerTimeCallback): void {
-    // throw new Error("Method not implemented.");
   }
 
 
