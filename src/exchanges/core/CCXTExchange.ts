@@ -1,10 +1,9 @@
 import * as _ from 'underscore'
 import * as ccxt from 'ccxt'
 
-import BaseExchange, { IExchangeFeature, IChartInterval } from './BaseExchange'
+import BaseExchange, { IExchangeFeature, IChartInterval, IExchangeAuth } from './BaseExchange'
 import { IOrderBook, IOrderRequest } from 'src/interfaces'
-import { ServerTimeCallback, LibrarySymbolInfo, SubscribeBarsCallback } from 'src/libraries/tradingview/datafeed-api'
-import { GetBarsResult } from 'src/libraries/tradingview/datafeeds/history-provider'
+import { ServerTimeCallback, LibrarySymbolInfo, SubscribeBarsCallback, GetBarsResult } from '../../datafeed-api'
 
 
 
@@ -14,10 +13,9 @@ export default class CCXTExchange extends BaseExchange {
   private readonly orderbookTimeouts: { [symbol: string]: number } = {}
 
 
-  constructor (exchange: ccxt.Exchange, maxLimit?: number) {
-    super(exchange.id, exchange.name, maxLimit)
+  constructor (exchange: ccxt.Exchange, auth?: IExchangeAuth, maxLimit?: number) {
+    super(exchange.id, exchange.name, auth, maxLimit)
     this.exchange = exchange
-
   }
 
 

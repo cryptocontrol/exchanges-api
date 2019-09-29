@@ -6,10 +6,10 @@ import { IOrderBook, IOrderTypes, IOrderRequest } from 'src/interfaces'
 import { OnReadyCallback, ResolutionBackValues, HistoryDepth, GetMarksCallback,
   IExternalDatafeed, IDatafeedChartApi, LibrarySymbolInfo, ServerTimeCallback, ErrorCallback,
   Mark, TimescaleMark, SearchSymbolsCallback, ResolveCallback, HistoryCallback,
-  SubscribeBarsCallback, ResolutionString } from 'src/libraries/tradingview/charting_library'
-import { GetBarsResult } from 'src/libraries/tradingview/datafeeds/history-provider'
-import { fetchResponseFromExtension } from 'src/libraries/BrowserExtension'
+  SubscribeBarsCallback, ResolutionString, GetBarsResult
+} from '../../datafeed-api'
 
+// import { fetchResponseFromExtension } from 'src/libraries/BrowserExtension'
 
 
 export type IExchangeFeature = 'view_deposits' | 'view_withdrawals' | 'get_deposit_address' | 'margin_trading'
@@ -17,17 +17,25 @@ export type IChartInterval = '1m' | '3m' | '5m' | '15m' | '30m' | '1h' | '2h' | 
 | '6h' | '8h' | '12h' | '1d' | '3d' | '1w' | '1M' | '1Y' | 'YTD'
 
 
+export interface IExchangeAuth {
+  key: string
+  secret: string
+  password?: string
+  extra?: object
+}
 
 /**
  * This class represents a exchange with functions which can be used with trading view.
  */
 abstract class BaseChartableExchange extends EventEmitter implements IExternalDatafeed, IDatafeedChartApi {
-  private readonly exchangeName: string
-  private readonly maxLimit: number
+  protected readonly exchangeName: string
+  protected readonly maxLimit: number
+  protected readonly auth?: IExchangeAuth
 
 
-  public constructor (exchangeName: string, maxLimit: number = 1000) {
+  public constructor (exchangeName: string, auth?: IExchangeAuth, maxLimit: number = 1000) {
     super()
+    this.auth = auth
     this.exchangeName = exchangeName
     this.maxLimit = maxLimit
   }
@@ -155,7 +163,7 @@ abstract class BaseChartableExchange extends EventEmitter implements IExternalDa
 
   protected sendRequest<T> (url: string, options: any = {}): Promise<T> {
     // nothing
-    return fetchResponseFromExtension(url, options)
+    return fetch(url, options)
     .then(response => {
       if (!response.ok) return response.json().then(json => Promise.reject(json))
       return response.json()
@@ -168,14 +176,14 @@ export default abstract class BaseExchange extends BaseChartableExchange {
   public readonly id: string
   public readonly name: string
 
-  private readonly enableThrottle = true
-  private readonly throttleInterval = 1000
   private readonly emitCache: {[event: string]: any[][]} = {}
   private readonly emitCacheLocks: {[event: string]: boolean} = {}
+  private readonly enableThrottle = true
+  private readonly throttleInterval = 1000
 
 
-  constructor (id: string, name: string, maxLimit?: number) {
-    super(name, maxLimit)
+  constructor (id: string, name: string, auth?: IExchangeAuth, maxLimit?: number) {
+    super(name, auth, maxLimit)
     this.id = id
     this.name = name
   }

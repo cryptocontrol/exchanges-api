@@ -2,8 +2,8 @@ import * as ccxt from 'ccxt'
 import * as qs from 'querystring'
 
 import { Bar, LibrarySymbolInfo, ServerTimeCallback, SubscribeBarsCallback, ResolutionString } from '../datafeed-api'
-import CCXTExchange from './core/CCXTExchange'
 import { IOrder } from '../interfaces'
+import CCXTExchange from './core/CCXTExchange'
 import Websocket from '../Websocket'
 
 

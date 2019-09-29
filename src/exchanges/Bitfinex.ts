@@ -2,8 +2,8 @@ import * as ccxt from 'ccxt'
 import { isArray } from 'util'
 import * as qs from 'querystring'
 
-import CCXTExchange from './core/CCXTExchange'
 import { Bar, GetBarsResult } from  '../datafeed-api'
+import CCXTExchange from './core/CCXTExchange'
 
 
 interface ISocketTradeMessage {

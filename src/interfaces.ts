@@ -31,3 +31,9 @@ export interface IOrder {
   price: number
   amount?: number
 }
+
+
+export interface IOrderBook {
+  bids: IOrder[]
+  asks: IOrder[]
+}
