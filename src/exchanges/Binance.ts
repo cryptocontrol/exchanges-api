@@ -3,7 +3,7 @@ import * as qs from 'querystring'
 
 import { Bar, LibrarySymbolInfo, ServerTimeCallback, SubscribeBarsCallback, ResolutionString } from '../datafeed-api'
 import CCXTExchange from './core/CCXTExchange'
-import { IOrder } from 'src/interfaces'
+import { IOrder } from '../interfaces'
 import Websocket from '../Websocket'
 
 

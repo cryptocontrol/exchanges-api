@@ -1,2 +1,2 @@
 # exchanges-api
-A unified API for all cryptocurrency exchanges
+A unified typescript API for all cryptocurrency exchanges

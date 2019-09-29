@@ -1,0 +1,46 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "baseUrl": ".",
+    "target": "es5",
+    "typeRoots" : [
+      "node_modules/@types",
+      "./typings"
+    ],
+    "types": [
+      "node",
+      "express"
+    ],
+    "noImplicitAny": false,
+    "sourceMap": true,
+    "lib": [
+      "es5",
+      "es6",
+      "es2016",
+      "dom"
+    ],
+    "experimentalDecorators": true,
+    "allowJs": true,
+    "jsx": "react",
+    "outDir": "dist"
+  },
+  "files": [
+    "src/index.tsx"
+  ],
+  "include": [
+    "typings/**/*.d.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "node_modules/@types/**/*.d.ts",
+    "app/node_modules/@types/**/*.d.ts"
+  ],
+  "exclude": [
+    "**/*test.tsx",
+    "build",
+    "config",
+    "dist",
+    "node_modules",
+    "app/node_modules",
+    "release"
+  ]
+}
