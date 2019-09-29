@@ -6,12 +6,6 @@ import { Bar, LibrarySymbolInfo, ServerTimeCallback, SubscribeBarsCallback, GetB
   ResolutionString } from '../datafeed-api'
 import CCXTExchange from './core/CCXTExchange'
 import { IOrderTypes } from 'src/interfaces'
-import ExchangeManger from 'src/libraries/ExchangeManager'
-import { IReduxState } from 'src/modules/reducers'
-import { Store } from 'redux'
-import { store } from 'src/modules'
-import { getCurrentUser } from 'src/modules/auth/reducer'
-import { getExchangeKeys } from 'src/modules/dashboard/trading/reducer'
 
 
 type ICCXTSymbol = string
@@ -161,51 +155,51 @@ export default class BitmexExchange extends CCXTExchange {
   }
 
   getOpenPositions = async () => {
-    const apiKeys = this.getExchangeAPIkeysfromStore(store, 'bitmex')
-    const bitmex = new BitmexAPI({
-      'apiKeyID': apiKeys.apiKey,
-      'apiKeySecret': apiKeys.secret
-    })
+    // const apiKeys = this.getExchangeAPIkeysfromStore(store, 'bitmex')
+    // const bitmex = new BitmexAPI({
+    //   'apiKeyID': apiKeys.apiKey,
+    //   'apiKeySecret': apiKeys.secret
+    // })
 
-    let positionResult: any = {}
-    const positions = await bitmex.Position.get()
-    const result1 = await positions.map(res => {
-      positionResult.symbol = res.symbol
-      positionResult.value = res.lastValue
-      positionResult.markPrice = res.lastPrice
-      positionResult.entryPrice = res.avgEntryPrice
-      positionResult.liqPrice = res.liquidationPrice
-      positionResult.size = res.currentQty
-      positionResult.currency = res.currency
-      positionResult.realisedPnl = res.realisedPnl
-      positionResult.unrealisedPnl = res.unrealisedPnl
-      positionResult.margin = res.initMargin
-      positionResult.crossMargin = res.crossMargin
-      // console.log(res)
-      return res
-    })
-    // console.log('r', result1)
-    // console.log(positionResult)
-    return positionResult
+    // let positionResult: any = {}
+    // const positions = await bitmex.Position.get()
+    // const result1 = await positions.map(res => {
+    //   positionResult.symbol = res.symbol
+    //   positionResult.value = res.lastValue
+    //   positionResult.markPrice = res.lastPrice
+    //   positionResult.entryPrice = res.avgEntryPrice
+    //   positionResult.liqPrice = res.liquidationPrice
+    //   positionResult.size = res.currentQty
+    //   positionResult.currency = res.currency
+    //   positionResult.realisedPnl = res.realisedPnl
+    //   positionResult.unrealisedPnl = res.unrealisedPnl
+    //   positionResult.margin = res.initMargin
+    //   positionResult.crossMargin = res.crossMargin
+    //   // console.log(res)
+    //   return res
+    // })
+    // // console.log('r', result1)
+    // // console.log(positionResult)
+    // return positionResult
   }
 
 
   closePosition = async (exchageId: string, positions: any, kind: any, price?: number) => {
-    const exchange = await ExchangeManger.getInstance().getExchange(exchageId)
-    const side = positions.size > 0 ? 'sell' : 'buy'
-    await exchange.executeOrder(
-      positions.symbol,
-      {
-        side: positions.size > 0 ? 'sell' : 'buy',
-        kind,
-        market: 'spot',
-        amount: positions.size > 0 ? positions.size : positions.size * -1,
-        price,
-        leverageMultiplier: 0,
-      }
-    )
-
+    // const exchange = await ExchangeManger.getInstance().getExchange(exchageId)
+    // const side = positions.size > 0 ? 'sell' : 'buy'
+    // await exchange.executeOrder(
+    //   positions.symbol,
+    //   {
+    //     side: positions.size > 0 ? 'sell' : 'buy',
+    //     kind,
+    //     market: 'spot',
+    //     amount: positions.size > 0 ? positions.size : positions.size * -1,
+    //     price,
+    //     leverageMultiplier: 0,
+    //   }
+    // )
   }
+
 
   getServerTime?(callback: ServerTimeCallback): void {
     // throw new Error("Method not implemented.");
@@ -221,16 +215,6 @@ export default class BitmexExchange extends CCXTExchange {
 
   unsubscribeBars(listenerGuid: string) {
     // throw new Error("Method not implemented.");
-  }
-
-
-  private getExchangeAPIkeysfromStore (reduxStore: Store<IReduxState>, exchangeId: string) {
-    const state = reduxStore.getState()
-
-    const user = getCurrentUser(state)
-
-    if (!user || !user._id) return
-    return getExchangeKeys(state, user._id, exchangeId)
   }
 
 
