@@ -184,8 +184,8 @@ export default class BitmexExchange extends CCXTExchange {
   }
 
 
-  closePosition = async (exchageId: string, positions: any, kind: any, price?: number) => {
-    // const exchange = await ExchangeManger.getInstance().getExchange(exchageId)
+  closePosition = async (exchangeId: string, positions: any, kind: any, price?: number) => {
+    // const exchange = await ExchangeManger.getInstance().getExchange(exchangeId)
     // const side = positions.size > 0 ? 'sell' : 'buy'
     // await exchange.executeOrder(
     //   positions.symbol,

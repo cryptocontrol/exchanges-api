@@ -88,7 +88,7 @@ export default class CCXTExchange extends BaseExchange {
     // throw new Error("Method not implemented.")
   }
 
-  public closePosition (exchageId: string, positions: any, kind: any, price?: number) {
+  public closePosition (exchangeId: string, positions: any, kind: any, price?: number) {
     // throw new Error("Method not implemented.")
   }
 

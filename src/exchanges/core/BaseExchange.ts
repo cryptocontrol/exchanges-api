@@ -213,7 +213,7 @@ export default abstract class BaseExchange extends BaseChartableExchange {
   public abstract getOpenPositions (symbol: string)
   public abstract getClosedPositions (symbol: string)
   public abstract getAllPositions (symbol: string)
-  public abstract closePosition (exchageId: string, positions: any, kind: any, price?: number)
+  public abstract closePosition (exchangeId: string, positions: any, kind: any, price?: number)
 
 
   // public abstract executeSpotOrder (order: IOrderRequest): ccxt.Order
