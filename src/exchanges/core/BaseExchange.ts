@@ -197,11 +197,11 @@ export default abstract class BaseExchange extends BaseChartableExchange {
   public abstract initialise (): Promise<void>
   public abstract isInitialised (): Boolean
 
-  public abstract streamTrades (symbol: string): void
-  public abstract streamOrderbook (symbol: string): void
+  // public abstract streamTrades (symbol: string): void
+  // public abstract streamOrderbook (symbol: string): void
 
-  public abstract stopStreamingTrades (symbol: string): void
-  public abstract stopStreamingOrderbook (symbol: string): void
+  // public abstract stopStreamingTrades (symbol: string): void
+  // public abstract stopStreamingOrderbook (symbol: string): void
 
   // public abstract loadMarkets (): void
   // public abstract fetchMarkets (): void
@@ -245,6 +245,7 @@ export default abstract class BaseExchange extends BaseChartableExchange {
   public abstract getWithdrawTxs (currency?: string, since?: number): Promise<ccxt.Transaction[]>
   public abstract getDepositAddress (currency: string): Promise<ccxt.DepositAddressResponse>
 
+  public getMarketId = (symbol: string) => symbol
 
   public toString () {
     return this.id

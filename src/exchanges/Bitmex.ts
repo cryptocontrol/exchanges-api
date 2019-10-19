@@ -1,6 +1,5 @@
 import * as ccxt from 'ccxt'
 import * as qs from 'querystring'
-import { BitmexAPI } from 'bitmex-node'
 
 import { Bar, LibrarySymbolInfo, ServerTimeCallback, SubscribeBarsCallback, GetBarsResult,
   ResolutionString } from '../datafeed-api'

@@ -271,6 +271,11 @@ export default class CCXTExchange extends BaseExchange {
   }
 
 
+  public getMarketId = (symbol: string) => {
+    return this.exchange.marketId(symbol)
+  }
+
+
   private checkForApiKey () {
     if (!this.exchange.apiKey) throw new Error('api key is missing')
   }
