@@ -25,7 +25,25 @@ export default class CCXTExchange extends BaseExchange {
 
 
   public async initialise () {
-    await this.exchange.loadMarkets().then(() => this.emit('init'))
+    const key = `exchange:${this.exchange.id}:markets`
+    const marketsCache = localStorage.getItem(key)
+
+    try {
+      if (marketsCache) {
+        this.exchange.setMarkets(JSON.parse(marketsCache))
+        this.emit('init')
+
+        const markets1 = await this.exchange.loadMarkets()
+        localStorage.setItem(key, JSON.stringify(markets1))
+        return
+      }
+    } catch (e) {
+      // pass
+    }
+
+    const markets = await this.exchange.loadMarkets()
+    localStorage.setItem(key, JSON.stringify(markets))
+    this.emit('init')
   }
 
 
